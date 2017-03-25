@@ -12,11 +12,8 @@
 	<title>Rehber Giriş</title>
 </h:head>
 <body>
-
 	<h:form>
-
 		<p:growl id="growl" sticky="true" showDetail="true" />
-
 		<p:wizard flowListener="#{personBean.onFlowProcess}">
 			<p:tab id="personal" title="Personal">
 				<p:panel header="Personal Details">
@@ -65,22 +62,22 @@
 			<p:tab id="contact" title="Contact">
 				<p:panel header="Contact Information">
 					<p:messages />
-					<h:panelGrid columns="2" columnClasses="label, value">
+					<h:panelGrid columns="3" columnClasses="label, value">
 						<h:outputText value="Email: *" />
 						<p:inputText value="#{personBean.eMail}" required="true"
 							label="Email" />
+						<h:outputText value="" />
+						<h:outputText value="Telefon No: " />
 
-						<ui:repeat varStatus="loop" value="#{TelNumbersBean.telNumbersList}">
-							<h:inputText value="#{TelNumbersBean.telNumbersList[loop.index]}" />
-						</ui:repeat>
-						<h:outputText value="Phone1: " />
-						<p:inputText name="TelNumbersBean.telNumbersList[${0}].telNumbers"
-							value="${TelNumberBean.telNumbers}" />
-
-						<h:outputText value="Phone2: " />
-						<p:inputText name="TelNumbersBean.telNumbersList[${1}].telNumbers"
-							value="${TelNumberBean.telNumbers}" />
-
+						<p:inputText value="#{telNumbersBean.telNumber}" />
+						<h:commandButton value="Numarayı Ekle"
+							action="#{telNumbersBean.addNumberToList}" />
+						<h:outputText value="Telefon Numaraları: " />
+						<h:selectManyListbox value="#{telNumbersBean.selectedItems}">
+							<f:selectItems value="#{telNumbersBean.availableItems}" />
+						</h:selectManyListbox>
+						<h:commandButton value="Seçilen(ler)i Sil"
+							action="#{telNumbersBean.remove}" />
 					</h:panelGrid>
 				</p:panel>
 			</p:tab>
@@ -119,8 +116,10 @@
 							<h:outputText value="Email: " />
 							<h:outputText value="#{personBean.eMail}"
 								styleClass="outputLabel" />
-							<h:outputText />
-							<h:outputText />
+							<h:outputText value="Telefon Numaraları: " />
+							<h:selectManyListbox>
+								<f:selectItems value="#{telNumbersBean.availableItems}" />
+							</h:selectManyListbox>
 						</h:panelGrid>
 					</h:panelGrid>
 

@@ -35,6 +35,17 @@ public class PersonBean implements Serializable {
 	@ManagedProperty(value = "#{personServiceImpl}")
 	transient PersonService personServiceImpl;
 
+	@ManagedProperty(value = "#{telNumbersBean}")
+	private TelNumbersBean telNumbersBean;
+
+	public TelNumbersBean getTelNumbersBean() {
+		return telNumbersBean;
+	}
+
+	public void setTelNumbersBean(TelNumbersBean telNumbersBean) {
+		this.telNumbersBean = telNumbersBean;
+	}
+
 	public PersonService getPersonServiceImpl() {
 		return personServiceImpl;
 	}
@@ -127,6 +138,7 @@ public class PersonBean implements Serializable {
 		person.setAddress(getAddress());
 		try {
 			personServiceImpl.addPerson(person);
+			telNumbersBean.addTelNumbers(person);
 			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "item added to the master successfully",
 					"success");
 			FacesContext.getCurrentInstance().addMessage(null, msg);

@@ -45,7 +45,16 @@
 		<jstl-version>1.2</jstl-version>
 		<jsf-version>2.2.14</jsf-version>
 	</properties>
-	
+	<repositories>
+
+		<repository>
+			<!-- PrimeFaces -->
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -102,6 +111,14 @@
 			<artifactId>primefaces</artifactId>
 			<version>6.0</version>
 		</dependency>
+
+
+		<dependency>
+			<groupId>org.primefaces.themes</groupId>
+			<artifactId>sunny</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+
 
 
 		<!-- Hibernate 4 dependencies -->

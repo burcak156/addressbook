@@ -4,17 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="tr"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Insert title here</title>
 </h:head>
 <body>
 	<h:form>
-		<p:dataTable var="car" value=""
-			widgetVar=""
+		<p:dataTable var="car" value="" widgetVar=""
 			emptyMessage="No cars found with given criteria">
 
 			<f:facet name="header">
@@ -32,24 +30,21 @@
 				<h:outputText value="" />
 			</p:column>
 
-			<p:column headerText="Brand"
-				footerText="exact">
+			<p:column headerText="Brand" footerText="exact">
 				<h:outputText value="" />
 			</p:column>
 
 			<p:column headerText="Color" footerText="in">
-			
+
 				<h:outputText value="" />
 			</p:column>
 
-			<p:column headerText="Status"
-				footerText="equals">
-		
+			<p:column headerText="Status" footerText="equals">
+
 				<h:outputText value="" />
 			</p:column>
 
-			<p:column headerText="Price"
-				footerText="custom (min)">
+			<p:column headerText="Price" footerText="custom (min)">
 				<h:outputText value="">
 				</h:outputText>
 			</p:column>
