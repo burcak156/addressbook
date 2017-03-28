@@ -2,25 +2,26 @@ package org.freesoftware.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-import javax.faces.application.FacesMessage;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.ViewScoped;
 
 import org.freesoftware.model.Person;
 import org.freesoftware.service.PersonService;
 import org.primefaces.event.FlowEvent;
 
 @ManagedBean(name = "personBean")
-@SessionScoped
+@ViewScoped
 public class PersonBean implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private long id;
 	private String name;
 	private String surname;
 	private String address;
@@ -29,6 +30,10 @@ public class PersonBean implements Serializable {
 	private String departmentName;
 	private String gender;
 	private boolean skip;
+	@SuppressWarnings("unused")
+	private List<Person> persons;
+	private List<Person> filteredPersons;
+	private Person selectedPerson;
 
 	Person person = new Person();
 
@@ -37,6 +42,14 @@ public class PersonBean implements Serializable {
 
 	@ManagedProperty(value = "#{telNumbersBean}")
 	private TelNumbersBean telNumbersBean;
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public TelNumbersBean getTelNumbersBean() {
 		return telNumbersBean;
@@ -118,6 +131,31 @@ public class PersonBean implements Serializable {
 		this.skip = skip;
 	}
 
+	public List<Person> getPersons() {
+		return personServiceImpl.getAllPersons();
+	}
+
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
+	}
+
+	public List<Person> getFilteredPersons() {
+		return filteredPersons;
+	}
+
+	public void setFilteredPersons(List<Person> filteredPersons) {
+		this.filteredPersons = filteredPersons;
+	}
+
+	public Person getSelectedPerson() {
+
+		return selectedPerson;
+	}
+
+	public void setSelectedPerson(Person selectedPerson) {
+		this.selectedPerson = selectedPerson;
+	}
+
 	public String onFlowProcess(FlowEvent event) {
 		if (skip) {
 			skip = false; // reset in case user goes back
@@ -125,6 +163,11 @@ public class PersonBean implements Serializable {
 		} else {
 			return event.getNewStep();
 		}
+	}
+
+	@PostConstruct
+	public void loadPerson() {
+		persons = personServiceImpl.getAllPersons();
 	}
 
 	// @PostConstruct
@@ -139,13 +182,15 @@ public class PersonBean implements Serializable {
 		try {
 			personServiceImpl.addPerson(person);
 			telNumbersBean.addTelNumbers(person);
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "item added to the master successfully",
-					"success");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
 
+	}
+
+	public void selectedTel(Person person) {
+
+		getTelNumbersBean().loadNumbers(person.getPersonId());
 	}
 }

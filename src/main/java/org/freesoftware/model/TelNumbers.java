@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -15,11 +16,12 @@ public class TelNumbers {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column
+	@Column(name="telId")
 	private long telId;
-	@Column
+	@Column(name="telnumber")
 	private String telNumber;
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="person_personId", referencedColumnName="personId")
 	private Person person;
 
 	public long getTelId() {

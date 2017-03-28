@@ -20,4 +20,10 @@ public class TelNumbersServiceImpl implements TelNumbersService {
 
 		telNumbersDAO.addTelNumbers(telNumbers);
 	}
+
+	@Transactional
+	@Override
+	public List<TelNumbers> getTelNumbers(long personId) {
+		return telNumbersDAO.getTelNumbers(personId);
+	}
 }

@@ -11,7 +11,7 @@ public interface PersonService {
 
 	public void deletePerson(Integer personId);
 
-	public Person getPerson(int personId);
+	public Person getPerson(long personId);
 
 	public Person updatePerson(Person person);
 }

@@ -38,7 +38,7 @@ public class PersonDAOImpl implements PersonDAO {
 	}
 
 	@Override
-	public Person getPerson(int personId) {
+	public Person getPerson(long personId) {
 		return (Person) sessionFactory.getCurrentSession().get(Person.class, personId);
 	}
 

@@ -8,14 +8,14 @@ import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.freesoftware.model.Person;
 import org.freesoftware.model.TelNumbers;
 import org.freesoftware.service.TelNumbersService;
 
 @ManagedBean(name = "telNumbersBean")
-@SessionScoped
+@ViewScoped
 public class TelNumbersBean implements Serializable {
 
 	/**
@@ -30,6 +30,7 @@ public class TelNumbersBean implements Serializable {
 	private Map<String, String> availableItems = new LinkedHashMap<String, String>();
 	private List<String> selectedItems;
 	List<TelNumbers> tel = new ArrayList<TelNumbers>();
+	List<TelNumbers> selected = new ArrayList<TelNumbers>();
 
 	@ManagedProperty(value = "#{telNumbersServiceImpl}")
 	transient TelNumbersService telNumbersServiceImpl;
@@ -114,6 +115,14 @@ public class TelNumbersBean implements Serializable {
 					}
 				}
 			}
+		}
+	}
+
+	public void loadNumbers(long personId) {
+		availableItems.clear();
+		selected = telNumbersServiceImpl.getTelNumbers(personId);
+		for (int i = 0; i < selected.size(); i++) {
+			availableItems.put((selected.get(i)).getTelNumber(), (selected.get(i)).getTelNumber());
 		}
 	}
 }

@@ -3,9 +3,11 @@ package org.freesoftware.dao;
 import java.util.List;
 
 import org.freesoftware.model.TelNumbers;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,4 +31,12 @@ public class TelNumbersDAOImpl implements TelNumbersDAO {
 		tx.commit();
 		session.close();
 	}
+
+	@SuppressWarnings("unchecked")
+	public List<TelNumbers> getTelNumbers(long personId) {
+		Criteria cr = sessionFactory.getCurrentSession().createCriteria(TelNumbers.class);
+		cr.add(Restrictions.eq("person.personId", personId));
+		return cr.list();
+	}
+
 }

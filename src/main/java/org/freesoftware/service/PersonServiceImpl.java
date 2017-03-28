@@ -35,7 +35,7 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	@Transactional
-	public Person getPerson(int personId) {
+	public Person getPerson(long personId) {
 		return personDAO.getPerson(personId);
 	}
 

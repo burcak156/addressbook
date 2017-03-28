@@ -13,6 +13,6 @@ public interface PersonDAO {
 
 	public Person updatePerson(Person person);
 
-	public Person getPerson(int personId);
+	public Person getPerson(long personId);
 
 }
