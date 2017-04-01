@@ -26,4 +26,16 @@ public class TelNumbersServiceImpl implements TelNumbersService {
 	public List<TelNumbers> getTelNumbers(long personId) {
 		return telNumbersDAO.getTelNumbers(personId);
 	}
+
+	@Transactional
+	@Override
+	public void addOneTelNumber(TelNumbers telNumber) {
+		telNumbersDAO.addOneTelNumber(telNumber);
+	}
+
+	@Transactional
+	@Override
+	public void deleteOneTelNumber(TelNumbers telNumber) {
+		telNumbersDAO.deleteOneTelNumber(telNumber);
+	}
 }

@@ -6,7 +6,10 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-
+<f:metadata>
+	<f:viewParam name="id" value="#{personBean.personId}" />
+	<f:viewAction action="#{personBean.initUpdatePage}" />
+</f:metadata>
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Rehber Giriş</title>
@@ -70,14 +73,14 @@
 						<h:outputText value="Telefon No: " />
 
 						<p:inputText value="#{telNumbersBean.telNumber}" />
-						<h:commandButton value="Numarayı Ekle"
-							action="#{telNumbersBean.addNumberToList}" />
+						<h:commandButton value="Numarayı Ekle ve Kaydet"
+							action="#{telNumbersBean.addNumberToDB}" />
 						<h:outputText value="Telefon Numaraları: " />
 						<h:selectManyListbox value="#{telNumbersBean.selectedItems}">
 							<f:selectItems value="#{telNumbersBean.availableItems}" />
 						</h:selectManyListbox>
-						<h:commandButton value="Seçilen(ler)i Sil"
-							action="#{telNumbersBean.removeFromList}" />
+						<h:commandButton value="Seçilen(ler)i Sil ve Kaydet"
+							actionListener="#{telNumbersBean.removeNumberFromDB}" />
 					</h:panelGrid>
 				</p:panel>
 			</p:tab>
@@ -106,10 +109,9 @@
 							<h:outputText value="Adres : " />
 							<h:outputText value="#{personBean.address}"
 								styleClass="outputLabel" />
-							<h:outputText value="Departman Adı: : " />
+							<h:outputText value="Departman Adı: " />
 							<h:outputText value="#{personBean.departmentName}"
 								styleClass="outputLabel" />
-
 						</h:panelGrid>
 
 						<h:panelGrid columns="2" columnClasses="label, value">
@@ -124,7 +126,7 @@
 					</h:panelGrid>
 
 					<p:commandButton value="Submit"
-						actionListener="#{personBean.addPerson}" update="growl"
+						actionListener="#{personBean.updatePerson}" update="growl"
 						process="@this" />
 				</p:panel>
 			</p:tab>

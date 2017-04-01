@@ -46,7 +46,6 @@
 		<jsf-version>2.2.14</jsf-version>
 	</properties>
 	<repositories>
-
 		<repository>
 			<!-- PrimeFaces -->
 			<id>prime-repo</id>
@@ -55,6 +54,13 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
+	<distributionManagement>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>sftp://primefaces.org/var/www/repository</url>
+		</repository>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -106,12 +112,12 @@
 			<artifactId>jsf-impl</artifactId>
 			<version>${jsf-version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>6.0</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.primefaces.themes</groupId>

@@ -9,4 +9,9 @@ public interface TelNumbersService {
 	public void addTelNumbers(List<TelNumbers> telNumbers);
 
 	public List<TelNumbers> getTelNumbers(long personId);
+
+	public void addOneTelNumber(TelNumbers telNumber);
+
+	public void deleteOneTelNumber(TelNumbers telNumber);
+
 }

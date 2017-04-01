@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.freesoftware.model.TelNumbers;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -39,4 +40,18 @@ public class TelNumbersDAOImpl implements TelNumbersDAO {
 		return cr.list();
 	}
 
+	@Override
+	public void addOneTelNumber(TelNumbers telNumber) {
+		sessionFactory.getCurrentSession().saveOrUpdate(telNumber);
+	}
+
+	@Override
+	public void deleteOneTelNumber(TelNumbers telNumber) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "DELETE FROM TelNumbers " + "WHERE telnumber = :tel_number and person_personId = :personId";
+		Query query = session.createQuery(hql);
+		query.setParameter("tel_number", telNumber.getTelNumber());
+		query.setParameter("personId", telNumber.getPerson().getPersonId());
+		query.executeUpdate();
+	}
 }

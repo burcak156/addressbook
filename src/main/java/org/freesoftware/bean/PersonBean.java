@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.freesoftware.model.Person;
 import org.freesoftware.service.PersonService;
@@ -21,7 +23,7 @@ public class PersonBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private long id;
+	private long personId;
 	private String name;
 	private String surname;
 	private String address;
@@ -43,12 +45,12 @@ public class PersonBean implements Serializable {
 	@ManagedProperty(value = "#{telNumbersBean}")
 	private TelNumbersBean telNumbersBean;
 
-	public long getId() {
-		return id;
+	public long getPersonId() {
+		return personId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setPersonId(long personId) {
+		this.personId = personId;
 	}
 
 	public TelNumbersBean getTelNumbersBean() {
@@ -170,7 +172,6 @@ public class PersonBean implements Serializable {
 		persons = personServiceImpl.getAllPersons();
 	}
 
-	// @PostConstruct
 	public void addPerson() {
 		person.setName(getName());
 		person.setSurname(getSurname());
@@ -189,8 +190,59 @@ public class PersonBean implements Serializable {
 
 	}
 
-	public void selectedTel(Person person) {
+	/*
+	 * Update page viewAction.
+	 */
 
+	public void initUpdatePage() {
+
+		if (personId == 0) {
+			String message = "Bad request. Please use a link from within the system.";
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+			return;
+		}
+
+		person = personServiceImpl.getPerson(personId);
+		getTelNumbersBean().setPerson(person);
+		if (person == null) {
+			String message = "Bad request. Unknown user.";
+			FacesContext.getCurrentInstance().addMessage(null,
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
+		}
+
+		if (!person.equals(null)) {
+			selectedTel(person);
+			setPersonId(person.getPersonId());
+			setName(person.getName());
+			setSurname(person.getSurname());
+			seteMail(person.geteMail());
+			setDepartmentName(person.getDepartmentName());
+			setGender(person.getGender());
+			setBirthday(person.getBirthday());
+			setAddress(person.getAddress());
+		}
+	}
+
+	public void selectedTel(Person person) {
 		getTelNumbersBean().loadNumbers(person.getPersonId());
 	}
+
+	public void updatePerson() {
+		person.setPersonId(getPersonId());
+		person.setName(getName());
+		person.setSurname(getSurname());
+		person.seteMail(geteMail());
+		person.setDepartmentName(getDepartmentName());
+		person.setGender(getGender());
+		person.setBirthday(getBirthday());
+		person.setAddress(getAddress());
+		try {
+			personServiceImpl.updatePerson(person);
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
+
 }

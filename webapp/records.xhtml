@@ -25,16 +25,17 @@
 				</p:outputPanel>
 			</f:facet>
 
-			<p:column filterBy="#{person.personId}" headerText="Id"
-				footerText="contains" filterMatchMode="contains">
+			<p:column headerText="Id">
 				<h:outputText value="#{person.personId}" />
 			</p:column>
 
-			<p:column headerText="Ad">
+			<p:column filterBy="#{person.name}" headerText="Ad"
+				filterMatchMode="contains">
 				<h:outputText value="#{person.name}" />
 			</p:column>
 
-			<p:column headerText="Soyad">
+			<p:column filterBy="#{person.surname}" headerText="Soyad"
+				filterMatchMode="contains">
 				<h:outputText value="#{person.surname}" />
 			</p:column>
 
@@ -42,8 +43,8 @@
 				<h:outputText value="#{person.eMail}" />
 			</p:column>
 
-			<p:column headerText="Cinsiyet">
-				<h:outputText value="#{person.gender}" />
+			<p:column headerText="Adres">
+				<h:outputText value="#{person.address}" />
 			</p:column>
 			<p:column style="width:32px;text-align: center">
 				<p:commandButton actionListener="#{personBean.selectedTel(person)}"
@@ -52,6 +53,9 @@
 					<f:setPropertyActionListener value="#{person}"
 						target="#{personBean.selectedPerson}" />
 				</p:commandButton>
+				<h:link value="View details of #{person.name}" outcome="update">
+					<f:param name="id" value="#{person.personId}" />
+				</h:link>
 			</p:column>
 		</p:dataTable>
 		<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
@@ -90,7 +94,7 @@
 			</p:outputPanel>
 		</p:dialog>
 	</h:form>
-	
-	<p:commandLink value="ekleme" action="newrecord?faces-redirect=true" /> 
+
+	<p:commandLink value="ekleme" action="newrecord?faces-redirect=true" />
 </body>
 </html>

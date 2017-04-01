@@ -22,13 +22,16 @@ public class TelNumbersBean implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	TelNumbers telNumbers;
-	public List<String> telNumbersList = new ArrayList<String>();
+
 	private String telNumber;
 	private Person person;
 
 	private Map<String, String> availableItems = new LinkedHashMap<String, String>();
 	private List<String> selectedItems;
+	public List<String> telNumbersList = new ArrayList<String>();
+
+	TelNumbers telNumbers;
+
 	List<TelNumbers> tel = new ArrayList<TelNumbers>();
 	List<TelNumbers> selected = new ArrayList<TelNumbers>();
 
@@ -75,6 +78,12 @@ public class TelNumbersBean implements Serializable {
 		this.selectedItems = selectedItems;
 	}
 
+	/*
+	 * The New Record Pages Methods
+	 * 
+	 * All Tel Numbers insert to DB from List.
+	 */
+
 	public void addTelNumbers(Person person) {
 
 		for (int i = 0; i < telNumbersList.size(); i++) {
@@ -92,6 +101,10 @@ public class TelNumbersBean implements Serializable {
 		}
 	}
 
+	/*
+	 * Tel Numbers, InputText to List in newrecord.xtml.
+	 */
+
 	public void addNumberToList() {
 
 		if (!telNumbersList.contains(telNumber) && telNumber.length() > 0) {
@@ -101,7 +114,7 @@ public class TelNumbersBean implements Serializable {
 
 	}
 
-	public void remove() {
+	public void removeFromList() {
 
 		if (!selectedItems.isEmpty()) {
 			for (int i = 0; i < selectedItems.size();) {
@@ -118,11 +131,52 @@ public class TelNumbersBean implements Serializable {
 		}
 	}
 
+	/*
+	 * The Update Pages Tel Numbers Methods.
+	 */
+
+	public void addNumberToDB() {
+
+		if (!telNumbersList.contains(telNumber) && telNumber.length() > 0) {
+			telNumbers = new TelNumbers();
+
+			telNumbersList.add(telNumber);
+			availableItems.put(telNumber, telNumber);
+
+			telNumbers.setTelNumber(telNumbersList.get(telNumbersList.size() - 1));
+			telNumbers.setPerson(getPerson());
+
+			telNumbersServiceImpl.addOneTelNumber(telNumbers);
+		}
+	}
+
+	public void removeNumberFromDB() {
+		if (!selectedItems.isEmpty()) {
+			for (int i = 0; i < selectedItems.size();) {
+				for (int j = 0; j < telNumbersList.size(); j++) {
+					if (selectedItems.isEmpty())
+						break;
+					if (selectedItems.get(i).equals(telNumbersList.get(j))) {
+						telNumbers = new TelNumbers();
+						telNumbers.setTelNumber(telNumbersList.get(j));
+						telNumbers.setPerson(getPerson());
+						telNumbersServiceImpl.deleteOneTelNumber(telNumbers);
+						telNumbersList.remove(j);
+						availableItems.remove(selectedItems.get(i));
+						selectedItems.remove(i);
+
+					}
+				}
+			}
+		}
+	}
+
 	public void loadNumbers(long personId) {
 		availableItems.clear();
 		selected = telNumbersServiceImpl.getTelNumbers(personId);
 		for (int i = 0; i < selected.size(); i++) {
 			availableItems.put((selected.get(i)).getTelNumber(), (selected.get(i)).getTelNumber());
+			telNumbersList.add(selected.get(i).getTelNumber());
 		}
 	}
 }
