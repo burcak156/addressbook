@@ -29,7 +29,7 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	@Transactional
-	public void deletePerson(Integer personId) {
+	public void deletePerson(long personId) {
 		personDAO.deletePerson(personId);
 	}
 

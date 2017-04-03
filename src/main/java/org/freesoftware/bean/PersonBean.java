@@ -172,7 +172,7 @@ public class PersonBean implements Serializable {
 		persons = personServiceImpl.getAllPersons();
 	}
 
-	public void addPerson() {
+	public String addPerson() {
 		person.setName(getName());
 		person.setSurname(getSurname());
 		person.seteMail(geteMail());
@@ -187,7 +187,7 @@ public class PersonBean implements Serializable {
 			e.printStackTrace();
 
 		}
-
+		return "records.xhtml";
 	}
 
 	/*
@@ -243,6 +243,11 @@ public class PersonBean implements Serializable {
 			e.printStackTrace();
 
 		}
+	}
+
+	public void deletePerson(long personId) {
+		getTelNumbersBean().deleteTelNumbers(personId);
+		personServiceImpl.deletePerson(personId);
 	}
 
 }

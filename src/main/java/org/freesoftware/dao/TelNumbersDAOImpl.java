@@ -54,4 +54,13 @@ public class TelNumbersDAOImpl implements TelNumbersDAO {
 		query.setParameter("personId", telNumber.getPerson().getPersonId());
 		query.executeUpdate();
 	}
+	
+	@Override
+	public void deleteTelNumbers(long personId) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "DELETE FROM TelNumbers " + "WHERE person_personId = :personId";
+		Query query = session.createQuery(hql);
+		query.setParameter("personId", personId);
+		query.executeUpdate();
+	}
 }

@@ -9,7 +9,7 @@ public interface PersonDAO {
 
 	public List<Person> getAllPersons();
 
-	public void deletePerson(Integer personId);
+	public void deletePerson(long personId);
 
 	public Person updatePerson(Person person);
 

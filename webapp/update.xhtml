@@ -15,122 +15,148 @@
 	<title>Rehber Giriş</title>
 </h:head>
 <body>
-	<h:form>
-		<p:growl id="growl" sticky="true" showDetail="true" />
-		<p:wizard flowListener="#{personBean.onFlowProcess}">
-			<p:tab id="personal" title="Personal">
-				<p:panel header="Personal Details">
-					<p:messages />
-					<h:panelGrid columns="2" columnClasses="label, value">
-						<h:outputText value="Adı: *" />
-						<p:inputText value="#{personBean.name}" required="true"
-							label="Firstname" />
+	<p:layout fullPage="true">
 
-						<h:outputText value="Soyadı: *" />
-						<p:inputText value="#{personBean.surname}" required="true"
-							label="Lastname" />
+		<p:layoutUnit position="north" size="100"
+			header="Adres Defteri Uygulaması" resizable="true" closable="false"
+			collapsible="false">
+			<h:outputText value="" />
+		</p:layoutUnit>
 
-						<p:outputLabel for="mask" value="Doğum Tarihi:" />
-						<p:calendar id="mask" value="#{personBean.birthday}"
-							pattern="dd-MM-yyyy" mask="true" />
-						<h:panelGrid columns="2" style="margin-bottom:10px">
-							<p:outputLabel for="gender" value="Gender:" />
-							<p:selectOneRadio id="gender" value="#{personBean.gender}">
-								<f:selectItem itemLabel="Kadın" itemValue="Kadın" />
-								<f:selectItem itemLabel="Erkek" itemValue="Erkek" />
-							</p:selectOneRadio>
-						</h:panelGrid>
-					</h:panelGrid>
-					<h:outputText value="Son Adıma Atla: " />
-					<h:selectBooleanCheckbox value="#{personBean.skip}" />
-				</p:panel>
-			</p:tab>
+		<p:layoutUnit position="west" size="200" header="Menü"
+			resizable="true" closable="false" collapsible="false">
+			<h:form>
+				<p:menu style="width: 175px;">
+					<p:menuitem value="Kayıtlar" action="records?faces-redirect=true"
+						icon="ui-icon-document-b" />
+					<p:menuitem value="Yeni Kayıt"
+						action="newrecord?faces-redirect=true" icon="ui-icon-plus" />
+				</p:menu>
+			</h:form>
+		</p:layoutUnit>
 
-			<p:tab id="address" title="Address">
-				<p:panel header="Address Details">
-					<p:messages />
-					<h:panelGrid columns="2" columnClasses="label, value">
-						<h:outputText value="Adres: " />
-						<p:inputText value="#{personBean.address}" />
+		<p:layoutUnit position="center">
+			<h:form>
+				<p:growl id="growl" sticky="true" showDetail="true" />
+				<p:wizard flowListener="#{personBean.onFlowProcess}">
+					<p:tab id="personal" title="Personal">
+						<p:panel header="Personal Details">
+							<p:messages />
+							<h:panelGrid columns="2" columnClasses="label, value">
+								<h:outputText value="Adı: *" />
+								<p:inputText value="#{personBean.name}" required="true"
+									label="Firstname" />
 
-						<h:outputText value="Departman Adı : " />
-						<p:inputText value="#{personBean.departmentName}" />
+								<h:outputText value="Soyadı: *" />
+								<p:inputText value="#{personBean.surname}" required="true"
+									label="Lastname" />
 
-						<h:outputText value="Son Adıma Atla: " />
-						<h:selectBooleanCheckbox value="#{personBean.skip}" />
-					</h:panelGrid>
-				</p:panel>
-			</p:tab>
+								<p:outputLabel for="mask" value="Doğum Tarihi:" />
+								<p:calendar id="mask" value="#{personBean.birthday}"
+									pattern="dd-MM-yyyy" mask="true" />
+								<h:panelGrid columns="2" style="margin-bottom:10px">
+									<p:outputLabel for="gender" value="Cinsiyet:" />
+									<p:selectOneRadio id="gender" value="#{personBean.gender}">
+										<f:selectItem itemLabel="Kadın" itemValue="Kadın" />
+										<f:selectItem itemLabel="Erkek" itemValue="Erkek" />
+									</p:selectOneRadio>
+								</h:panelGrid>
+							</h:panelGrid>
+							<h:outputText value="Son Adıma Atla: " />
+							<h:selectBooleanCheckbox value="#{personBean.skip}" />
+						</p:panel>
+					</p:tab>
 
-			<p:tab id="contact" title="Contact">
-				<p:panel header="Contact Information">
-					<p:messages />
-					<h:panelGrid columns="3" columnClasses="label, value">
-						<h:outputText value="Email: *" />
-						<p:inputText value="#{personBean.eMail}" required="true"
-							label="Email" />
-						<h:outputText value="" />
-						<h:outputText value="Telefon No: " />
+					<p:tab id="address" title="Address">
+						<p:panel header="Address Details">
+							<p:messages />
+							<h:panelGrid columns="2" columnClasses="label, value">
+								<h:outputText value="Adres: " />
+								<p:inputText value="#{personBean.address}" />
 
-						<p:inputText value="#{telNumbersBean.telNumber}" />
-						<h:commandButton value="Numarayı Ekle ve Kaydet"
-							action="#{telNumbersBean.addNumberToDB}" />
-						<h:outputText value="Telefon Numaraları: " />
-						<h:selectManyListbox value="#{telNumbersBean.selectedItems}">
-							<f:selectItems value="#{telNumbersBean.availableItems}" />
-						</h:selectManyListbox>
-						<h:commandButton value="Seçilen(ler)i Sil ve Kaydet"
-							actionListener="#{telNumbersBean.removeNumberFromDB}" />
-					</h:panelGrid>
-				</p:panel>
-			</p:tab>
+								<h:outputText value="Departman Adı : " />
+								<p:inputText value="#{personBean.departmentName}" />
 
-			<p:tab id="confirm" title="Confirmation">
-				<p:panel header="Confirmation">
-					<h:panelGrid id="confirmation" columns="3"
-						columnClasses="grid,grid,grid">
-						<h:panelGrid columns="2" columnClasses="label, value">
-							<h:outputText value="Adı : " />
-							<h:outputText value="#{personBean.name}" styleClass="outputLabel" />
+								<h:outputText value="Son Adıma Atla: " />
+								<h:selectBooleanCheckbox value="#{personBean.skip}" />
+							</h:panelGrid>
+						</p:panel>
+					</p:tab>
 
-							<h:outputText value="Soyadı : " />
-							<h:outputText value="#{personBean.surname}"
-								styleClass="outputLabel" />
+					<p:tab id="contact" title="Contact">
+						<p:panel header="Contact Information">
+							<p:messages />
+							<h:panelGrid columns="3" columnClasses="label, value">
+								<h:outputText value="Email: *" />
+								<p:inputText value="#{personBean.eMail}" required="true"
+									label="Email" />
+								<h:outputText value="" />
+								<h:outputText value="Telefon No: " />
 
-							<h:outputText value="Doğum Tarihi : " />
-							<h:outputText value="#{personBean.birthday}"
-								styleClass="outputLabel" />
-							<h:outputText value="Cinsiyet : " />
-							<h:outputText value="#{personBean.gender}"
-								styleClass="outputLabel" />
-						</h:panelGrid>
+								<p:inputText value="#{telNumbersBean.telNumber}" />
+								<h:commandButton value="Numarayı Ekle ve Kaydet"
+									action="#{telNumbersBean.addNumberToDB}" />
+								<h:outputText value="Telefon Numaraları: " />
+								<h:selectManyListbox value="#{telNumbersBean.selectedItems}">
+									<f:selectItems value="#{telNumbersBean.availableItems}" />
+								</h:selectManyListbox>
+								<h:commandButton value="Seçilen(ler)i Sil ve Kaydet"
+									actionListener="#{telNumbersBean.removeNumberFromDB}" />
+							</h:panelGrid>
+						</p:panel>
+					</p:tab>
 
-						<h:panelGrid columns="2" columnClasses="label, value">
-							<h:outputText value="Adres : " />
-							<h:outputText value="#{personBean.address}"
-								styleClass="outputLabel" />
-							<h:outputText value="Departman Adı: " />
-							<h:outputText value="#{personBean.departmentName}"
-								styleClass="outputLabel" />
-						</h:panelGrid>
+					<p:tab id="confirm" title="Confirmation">
+						<p:panel header="Confirmation">
+							<h:panelGrid id="confirmation" columns="3"
+								columnClasses="grid,grid,grid">
+								<h:panelGrid columns="2" columnClasses="label, value">
+									<h:outputText value="Adı : " />
+									<h:outputText value="#{personBean.name}"
+										styleClass="outputLabel" />
 
-						<h:panelGrid columns="2" columnClasses="label, value">
-							<h:outputText value="Email: " />
-							<h:outputText value="#{personBean.eMail}"
-								styleClass="outputLabel" />
-							<h:outputText value="Telefon Numaraları: " />
-							<h:selectManyListbox>
-								<f:selectItems value="#{telNumbersBean.availableItems}" />
-							</h:selectManyListbox>
-						</h:panelGrid>
-					</h:panelGrid>
+									<h:outputText value="Soyadı : " />
+									<h:outputText value="#{personBean.surname}"
+										styleClass="outputLabel" />
 
-					<p:commandButton value="Submit"
-						actionListener="#{personBean.updatePerson}" update="growl"
-						process="@this" />
-				</p:panel>
-			</p:tab>
-		</p:wizard>
-	</h:form>
+									<h:outputText value="Doğum Tarihi : " />
+									<h:outputText value="#{personBean.birthday}"
+										styleClass="outputLabel" />
+									<h:outputText value="Cinsiyet : " />
+									<h:outputText value="#{personBean.gender}"
+										styleClass="outputLabel" />
+								</h:panelGrid>
+
+								<h:panelGrid columns="2" columnClasses="label, value">
+									<h:outputText value="Adres : " />
+									<h:outputText value="#{personBean.address}"
+										styleClass="outputLabel" />
+									<h:outputText value="Departman Adı: " />
+									<h:outputText value="#{personBean.departmentName}"
+										styleClass="outputLabel" />
+								</h:panelGrid>
+
+								<h:panelGrid columns="2" columnClasses="label, value">
+									<h:outputText value="Email: " />
+									<h:outputText value="#{personBean.eMail}"
+										styleClass="outputLabel" />
+									<h:outputText value="Telefon Numaraları: " />
+									<h:selectManyListbox>
+										<f:selectItems value="#{telNumbersBean.availableItems}" />
+									</h:selectManyListbox>
+								</h:panelGrid>
+							</h:panelGrid>
+
+							<p:commandButton value="Submit"
+								actionListener="#{personBean.updatePerson}" update="growl"
+								action="records?faces-redirect=true"
+								process="@this" />
+						</p:panel>
+					</p:tab>
+				</p:wizard>
+			</h:form>
+		</p:layoutUnit>
+
+	</p:layout>
 </body>
 </html>

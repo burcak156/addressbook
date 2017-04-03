@@ -24,7 +24,7 @@ public class PersonDAOImpl implements PersonDAO {
 	}
 
 	@Override
-	public void deletePerson(Integer personId) {
+	public void deletePerson(long personId) {
 		Person person = (Person) sessionFactory.getCurrentSession().load(Person.class, personId);
 		if (null != person) {
 			this.sessionFactory.getCurrentSession().delete(person);

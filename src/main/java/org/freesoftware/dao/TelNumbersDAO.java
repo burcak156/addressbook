@@ -13,4 +13,6 @@ public interface TelNumbersDAO {
 	public void addOneTelNumber(TelNumbers telNumber);
 	
 	public void deleteOneTelNumber(TelNumbers telNumber);
+	
+	public void deleteTelNumbers(long personId);
 }

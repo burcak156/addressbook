@@ -8,93 +8,134 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Insert title here</title>
+	<title>Kayıtlar</title>
 </h:head>
-<body>
-	<h:form id="form">
-		<p:dataTable var="person" value="#{personBean.persons}"
-			widgetVar="personTable"
-			emptyMessage="No person found with given criteria"
-			filteredValue="#{personBean.filteredPersons}">
+<h:body>
+	<p:layout fullPage="true">
 
-			<f:facet name="header">
-				<p:outputPanel>
-					<h:outputText value="Search all fields:" />
-					<p:inputText id="globalFilter" onkeyup="PF('personTable').filter()"
-						style="width:150px" placeholder="Enter keyword" />
-				</p:outputPanel>
-			</f:facet>
+		<p:layoutUnit position="north" size="100"
+			header="Adres Defteri Uygulaması" resizable="true" closable="false"
+			collapsible="false">
+			<h:outputText value="" />
+		</p:layoutUnit>
 
-			<p:column headerText="Id">
-				<h:outputText value="#{person.personId}" />
-			</p:column>
+		<p:layoutUnit position="west" size="200" header="Menü"
+			resizable="true" closable="false" collapsible="false">
+			<h:form>
+				<p:menu style="width: 175px;">
+					<p:menuitem value="Yeni Kayıt"
+						action="newrecord?faces-redirect=true" icon="ui-icon-plus" />
 
-			<p:column filterBy="#{person.name}" headerText="Ad"
-				filterMatchMode="contains">
-				<h:outputText value="#{person.name}" />
-			</p:column>
+				</p:menu>
+			</h:form>
+		</p:layoutUnit>
 
-			<p:column filterBy="#{person.surname}" headerText="Soyad"
-				filterMatchMode="contains">
-				<h:outputText value="#{person.surname}" />
-			</p:column>
+		<p:layoutUnit position="center">
+			<h:form id="form">
+				<p:dataTable var="person" rows="5" paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" value="#{personBean.persons}"
+					widgetVar="personTable"
+					emptyMessage="No person found with given criteria"
+					filteredValue="#{personBean.filteredPersons}">
 
-			<p:column headerText="e-Mail">
-				<h:outputText value="#{person.eMail}" />
-			</p:column>
+					<f:facet name="header">
+						<p:outputPanel>
+							<h:outputText value="Search all fields:" />
+							<p:inputText id="globalFilter"
+								onkeyup="PF('personTable').filter()" style="width:150px"
+								placeholder="Enter keyword" />
+						</p:outputPanel>
+					</f:facet>
 
-			<p:column headerText="Adres">
-				<h:outputText value="#{person.address}" />
-			</p:column>
-			<p:column style="width:32px;text-align: center">
-				<p:commandButton actionListener="#{personBean.selectedTel(person)}"
-					update=":form:personDetail" oncomplete="PF('personDialog').show()"
-					icon="ui-icon-search" title="View">
-					<f:setPropertyActionListener value="#{person}"
-						target="#{personBean.selectedPerson}" />
-				</p:commandButton>
-				<h:link value="View details of #{person.name}" outcome="update">
-					<f:param name="id" value="#{person.personId}" />
-				</h:link>
-			</p:column>
-		</p:dataTable>
-		<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
-			showEffect="fade" hideEffect="fade" resizable="false">
-			<p:outputPanel id="personDetail" style="text-align:center;">
-				<p:panelGrid columns="4"
-					rendered="#{not empty personBean.selectedPerson}"
-					columnClasses="label,value,label,value">
+					<p:column filterBy="#{person.name}" headerText="Ad"
+						filterMatchMode="contains">
+						<h:outputText value="#{person.name}" />
+					</p:column>
 
-					<h:outputText value="Ad :" />
-					<h:outputText value="#{personBean.selectedPerson.name}" />
+					<p:column filterBy="#{person.surname}" headerText="Soyad"
+						filterMatchMode="contains">
+						<h:outputText value="#{person.surname}" />
+					</p:column>
 
-					<h:outputText value="Soyad :" />
-					<h:outputText value="#{personBean.selectedPerson.surname}" />
+					<p:column headerText="e-Mail">
+						<h:outputText value="#{person.eMail}" />
+					</p:column>
 
-					<h:outputText value="Doğum Tarihi :" />
-					<h:outputText value="#{personBean.selectedPerson.birthday}" />
+					<p:column headerText="Adres">
+						<h:outputText value="#{person.address}" />
+					</p:column>
+					<p:column style="width:auto;text-align: left">
+						<p:panelGrid columns="3" styleClass="ui-noborder">
+							<p:commandButton
+								actionListener="#{personBean.selectedTel(person)}"
+								update=":form:personDetail"
+								oncomplete="PF('personDialog').show()" icon="ui-icon-search"
+								title="View">
+								<f:setPropertyActionListener value="#{person}"
+									target="#{personBean.selectedPerson}" />
+							</p:commandButton>
+							<p:button icon="ui-icon-pencil" outcome="update">
+								<f:param name="id" value="#{person.personId}" />
+							</p:button>
 
-					<h:outputText value="E-Mail :" />
-					<h:outputText value="#{personBean.selectedPerson.eMail}" />
+							<p:commandButton icon="ui-icon-circle-close"
+								actionListener="#{personBean.deletePerson(person.personId)}"
+								update="form">
+								<p:confirm header="Confirmation" message="Are you sure?"
+									icon="ui-icon-alert" />
+							</p:commandButton>
 
-					<h:outputText value="Adres :" />
-					<h:outputText value="#{personBean.selectedPerson.address}" />
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Yes" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="No" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
 
-					<h:outputText value="Departman :" />
-					<h:outputText value="#{personBean.selectedPerson.departmentName}" />
+						</p:panelGrid>
+					</p:column>
+				</p:dataTable>
+				<p:dialog header="Person Info" widgetVar="personDialog" modal="true"
+					showEffect="fade" hideEffect="fade" resizable="false"
+					appendTo="@(body)">
+					<p:outputPanel id="personDetail" style="text-align:center;">
+						<p:panelGrid columns="4"
+							rendered="#{not empty personBean.selectedPerson}"
+							columnClasses="label,value,label,value">
 
-					<h:outputText value="Cinsiyet :" />
-					<h:outputText value="#{personBean.selectedPerson.gender}" />
-					<h:outputText value="Telefon No :" />
-					<h:selectManyListbox>
-						<f:selectItems value="#{telNumbersBean.availableItems}" />
-					</h:selectManyListbox>
+							<h:outputText value="Ad :" />
+							<h:outputText value="#{personBean.selectedPerson.name}" />
 
-				</p:panelGrid>
-			</p:outputPanel>
-		</p:dialog>
-	</h:form>
+							<h:outputText value="Soyad :" />
+							<h:outputText value="#{personBean.selectedPerson.surname}" />
 
-	<p:commandLink value="ekleme" action="newrecord?faces-redirect=true" />
-</body>
+							<h:outputText value="Doğum Tarihi :" />
+							<h:outputText value="#{personBean.selectedPerson.birthday}" />
+
+							<h:outputText value="E-Mail :" />
+							<h:outputText value="#{personBean.selectedPerson.eMail}" />
+
+							<h:outputText value="Adres :" />
+							<h:outputText value="#{personBean.selectedPerson.address}" />
+
+							<h:outputText value="Departman :" />
+							<h:outputText value="#{personBean.selectedPerson.departmentName}" />
+
+							<h:outputText value="Cinsiyet :" />
+							<h:outputText value="#{personBean.selectedPerson.gender}" />
+							<h:outputText value="Telefon No :" />
+							<h:selectManyListbox>
+								<f:selectItems value="#{telNumbersBean.availableItems}" />
+							</h:selectManyListbox>
+
+						</p:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
+		</p:layoutUnit>
+
+	</p:layout>
+</h:body>
 </html>

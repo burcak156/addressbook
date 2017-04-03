@@ -38,4 +38,10 @@ public class TelNumbersServiceImpl implements TelNumbersService {
 	public void deleteOneTelNumber(TelNumbers telNumber) {
 		telNumbersDAO.deleteOneTelNumber(telNumber);
 	}
+
+	@Transactional
+	@Override
+	public void deleteTelNumbers(long personId) {
+		telNumbersDAO.deleteTelNumbers(personId);
+	}
 }

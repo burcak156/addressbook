@@ -9,7 +9,7 @@ public interface PersonService {
 
 	public List<Person> getAllPersons();
 
-	public void deletePerson(Integer personId);
+	public void deletePerson(long personId);
 
 	public Person getPerson(long personId);
 
