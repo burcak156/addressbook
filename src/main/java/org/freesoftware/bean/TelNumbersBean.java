@@ -179,7 +179,7 @@ public class TelNumbersBean implements Serializable {
 			telNumbersList.add(selected.get(i).getTelNumber());
 		}
 	}
-	
+
 	public void deleteTelNumbers(long personId) {
 		telNumbersServiceImpl.deleteTelNumbers(personId);
 	}

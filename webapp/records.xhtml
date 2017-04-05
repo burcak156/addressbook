@@ -13,7 +13,7 @@
 <h:body>
 	<p:layout fullPage="true">
 
-		<p:layoutUnit position="north" size="100"
+		<p:layoutUnit position="north" size="75"
 			header="Adres Defteri Uygulaması" resizable="true" closable="false"
 			collapsible="false">
 			<h:outputText value="" />
@@ -82,15 +82,15 @@
 							<p:commandButton icon="ui-icon-circle-close"
 								actionListener="#{personBean.deletePerson(person.personId)}"
 								update="form">
-								<p:confirm header="Confirmation" message="Are you sure?"
+								<p:confirm header="Confirmation" message="Silmek istiyormusunuz?"
 									icon="ui-icon-alert" />
 							</p:commandButton>
 
 							<p:confirmDialog global="true" showEffect="fade"
 								hideEffect="fade">
-								<p:commandButton value="Yes" type="button"
+								<p:commandButton value="Evet" type="button"
 									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-								<p:commandButton value="No" type="button"
+								<p:commandButton value="Hayır" type="button"
 									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 							</p:confirmDialog>
 
