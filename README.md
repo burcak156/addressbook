@@ -14,10 +14,10 @@ Spring (Service and Business Layer) and Hibernate (Persistence Layer).
 * Dependency Injection
 * Spring enables developers to develop enterprise-class applications using POJOs.
 * Spring can be used as middle tier for building server-side business logic.  The data support framework of Spring provides extensive utilities to integrate Hibernate.
-# Why Hibernate ?
+### Why Hibernate ?
 * Annotation support is the best feature for me.
 * You already know the rest :)
-# Why PrimeFaces ?
+### Why PrimeFaces ?
 * I think best option for JSF-Spring Applications.
 * Easy to integrate
 * Ajax
