@@ -5,7 +5,25 @@ In this project, we will see integrate JSF, Spring and Hibernate in a simple web
 ## Getting Started
 
 Multilayer Applications can be developed by using more than one frameworks such as JSF (Web Layer), 
-Spring (Service and Business Layer) and Hibernate (Persistence Layer). JSF Framework may be suitable for building rich web user interfaces with component-based UI support. Spring framework can be used as middle tier for building server-side business logic. The data support framework of Spring provides extensive utilities to integrate Hibernate.
+Spring (Service and Business Layer) and Hibernate (Persistence Layer). 
+### Why JSF ?
+* JSF is a component-oriented, event-based framework.
+* JSF Framework may be suitable for building rich web user interfaces with component-based UI support.
+### Why Spring ?
+* Spring provides about 20 modules which can be used based on an application requirement.
+* Dependency Injection
+* Spring enables developers to develop enterprise-class applications using POJOs.
+* Spring can be used as middle tier for building server-side business logic.  The data support framework of Spring provides extensive utilities to integrate Hibernate.
+# Why Hibernate ?
+* Annotation support is the best feature for me.
+* You already know the rest :)
+# Why PrimeFaces ?
+* I think best option for JSF-Spring Applications.
+* Easy to integrate
+* Ajax
+* Made by Turkish Developers. :)
+
+
 The easiest way is to use SpringBeanFacesELResolver class which allows to inject dependencies into JSF-Managed beans.
 
 To use the class, define `SpringBeanFacesELResolver` in `faces-config.xml` as given below.
